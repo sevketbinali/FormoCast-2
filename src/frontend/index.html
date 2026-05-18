@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FormoCast - Canlı Piyasa Analizi</title>
+    <title>FormoCast - Geçmiş Formasyon Analizi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body>
     <div class="background-elements">
@@ -19,28 +20,43 @@
                 <span class="logo-icon">📊</span>
                 <h1>FormoCast</h1>
             </div>
-            <p class="subtitle">BIST Hisse Senetleri Canlı Formasyon ve Sinyal Tarayıcısı</p>
+            <p class="subtitle">BIST 20 Yıllık Formasyon Simülasyonu ve Fiyat Hedefi Öngörüleri</p>
         </header>
 
         <main class="main-content">
-            <div class="control-panel glass-panel">
-                <h2>Piyasa Tarayıcı</h2>
-                <p>Belirlenen BIST havuzundaki hisseler anlık olarak taranır ve geçmiş backtest istatistikleriyle birlikte canlı formasyon fırsatları aşağıda listelenir.</p>
-                <button id="scanBtn" class="btn-primary">
-                    <span class="btn-text">Taramayı Başlat</span>
-                    <span class="btn-loader" style="display: none;">🔄</span>
-                </button>
-            </div>
+            <div class="dashboard-layout">
+                <aside class="sidebar glass-panel">
+                    <h3>Hisse Seçin</h3>
+                    <ul id="tickerList" class="ticker-list">
+                        <li class="loading-text">Yükleniyor...</li>
+                    </ul>
+                </aside>
 
-            <div class="results-container">
-                <div class="status-indicator">
-                    <div id="statusDot" class="dot"></div>
-                    <span id="statusText">Sistem Hazır. Tarama bekleniyor...</span>
-                </div>
-
-                <div id="cardsGrid" class="cards-grid">
-                    <!-- Kartlar buraya JS ile yüklenecek -->
-                </div>
+                <section class="dashboard-main glass-panel">
+                    <div class="dashboard-header">
+                        <h2 id="currentTickerTitle">Hisse Seçiniz</h2>
+                        <div id="loader" class="loader" style="display: none;"></div>
+                    </div>
+                    
+                    <div id="chartContainer" class="chart-container"></div>
+                    
+                    <div id="patternDetails" class="pattern-details" style="display:none;">
+                        <h3>Formasyon Öngörüsü (Geçmişe Yönelik)</h3>
+                        <div class="details-grid">
+                            <div class="detail-item"><strong>Tip:</strong> <span id="pType"></span></div>
+                            <div class="detail-item"><strong>Oluşum Tarihi:</strong> <span id="pDate"></span></div>
+                            <div class="detail-item"><strong>Oluşum Fiyatı:</strong> <span id="pPrice"></span></div>
+                            <div class="detail-item"><strong>Öngörülen Yön:</strong> <span id="pDirection"></span></div>
+                            <div class="detail-item"><strong>Hedef Fiyat:</strong> <span id="pTargetPrice"></span></div>
+                            <div class="detail-item"><strong>Hedef Tarih:</strong> <span id="pTargetDate"></span></div>
+                        </div>
+                    </div>
+                    
+                    <div id="patternsListContainer" class="patterns-list-container">
+                        <h3>Tespit Edilen Formasyonlar</h3>
+                        <div id="patternsList" class="patterns-list"></div>
+                    </div>
+                </section>
             </div>
         </main>
     </div>

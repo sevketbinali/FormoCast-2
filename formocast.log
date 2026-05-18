@@ -63,3 +63,33 @@
 2026-05-18 22:47:02,374 - FormoCast - WARNING - ERR-SIM-001: Simülasyon için herhangi bir formasyon bulunamadı.
 2026-05-18 22:47:02,376 - FormoCast - INFO - Simülasyon tamamlandı. İşlem: 1, Win Rate: %100.00, PnL: %10.00
 2026-05-18 22:47:02,378 - FormoCast - INFO - Simülasyon tamamlandı. İşlem: 1, Win Rate: %0.00, PnL: %-5.00
+2026-05-18 22:47:30,191 - FormoCast - INFO - Canlı Tarama başlatılıyor: THYAO
+2026-05-18 22:47:30,192 - FormoCast - INFO - 'THYAO.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:32,757 - FormoCast - ERROR - ERR-DATA-001: 'THYAO.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:32,758 - FormoCast - INFO - Canlı Tarama başlatılıyor: GARAN
+2026-05-18 22:47:32,758 - FormoCast - INFO - 'GARAN.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:34,324 - FormoCast - ERROR - ERR-DATA-001: 'GARAN.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:34,324 - FormoCast - INFO - Canlı Tarama başlatılıyor: KCHOL
+2026-05-18 22:47:34,325 - FormoCast - INFO - 'KCHOL.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:35,886 - FormoCast - ERROR - ERR-DATA-001: 'KCHOL.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:35,887 - FormoCast - INFO - Canlı Tarama başlatılıyor: TUPRS
+2026-05-18 22:47:35,887 - FormoCast - INFO - 'TUPRS.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:38,512 - FormoCast - ERROR - ERR-DATA-001: 'TUPRS.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:38,512 - FormoCast - INFO - Canlı Tarama başlatılıyor: AKBNK
+2026-05-18 22:47:38,513 - FormoCast - INFO - 'AKBNK.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:40,136 - FormoCast - ERROR - ERR-DATA-001: 'AKBNK.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:40,136 - FormoCast - INFO - Canlı Tarama başlatılıyor: EREGL
+2026-05-18 22:47:40,136 - FormoCast - INFO - 'EREGL.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:41,772 - FormoCast - ERROR - ERR-DATA-001: 'EREGL.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:41,772 - FormoCast - INFO - Canlı Tarama başlatılıyor: BIMAS
+2026-05-18 22:47:41,773 - FormoCast - INFO - 'BIMAS.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:43,316 - FormoCast - ERROR - ERR-DATA-001: 'BIMAS.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:43,316 - FormoCast - INFO - Canlı Tarama başlatılıyor: SAHOL
+2026-05-18 22:47:43,316 - FormoCast - INFO - 'SAHOL.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:45,989 - FormoCast - ERROR - ERR-DATA-001: 'SAHOL.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:45,989 - FormoCast - INFO - Canlı Tarama başlatılıyor: SISE
+2026-05-18 22:47:45,989 - FormoCast - INFO - 'SISE.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:47,621 - FormoCast - ERROR - ERR-DATA-001: 'SISE.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:47,621 - FormoCast - INFO - Canlı Tarama başlatılıyor: ASELS
+2026-05-18 22:47:47,622 - FormoCast - INFO - 'ASELS.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:47:51,240 - FormoCast - ERROR - ERR-DATA-001: 'ASELS.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.

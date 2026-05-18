@@ -1,78 +1,177 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const scanBtn = document.getElementById('scanBtn');
-    const btnText = scanBtn.querySelector('.btn-text');
-    const btnLoader = scanBtn.querySelector('.btn-loader');
-    const statusDot = document.getElementById('statusDot');
-    const statusText = document.getElementById('statusText');
-    const cardsGrid = document.getElementById('cardsGrid');
+document.addEventListener('DOMContentLoaded', async () => {
+    const tickerList = document.getElementById('tickerList');
+    const currentTickerTitle = document.getElementById('currentTickerTitle');
+    const loader = document.getElementById('loader');
+    const chartContainer = document.getElementById('chartContainer');
+    const patternsList = document.getElementById('patternsList');
+    const patternDetails = document.getElementById('patternDetails');
 
-    scanBtn.addEventListener('click', async () => {
-        // UI Güncellemesi: Yükleniyor durumu
-        scanBtn.disabled = true;
-        btnText.textContent = 'Taranıyor...';
-        btnLoader.style.display = 'inline-block';
-        statusDot.className = 'dot active';
-        statusText.textContent = 'Piyasa canlı olarak taranıyor, geçmiş veriler analiz ediliyor...';
-        cardsGrid.innerHTML = ''; // Eski sonuçları temizle
+    // Detay elementleri
+    const pType = document.getElementById('pType');
+    const pDate = document.getElementById('pDate');
+    const pPrice = document.getElementById('pPrice');
+    const pDirection = document.getElementById('pDirection');
+    const pTargetPrice = document.getElementById('pTargetPrice');
+    const pTargetDate = document.getElementById('pTargetDate');
+
+    let chart = null;
+    let candleSeries = null;
+    let markersSeries = null;
+    let currentData = null;
+
+    // 1. Sayfa yüklendiğinde hisse listesini çek
+    try {
+        const res = await fetch('/api/tickers');
+        const data = await res.json();
+        if(data.status === 'success') {
+            tickerList.innerHTML = '';
+            data.data.forEach((ticker, index) => {
+                const li = document.createElement('li');
+                li.textContent = ticker;
+                li.onclick = () => loadTickerHistory(ticker, li);
+                tickerList.appendChild(li);
+
+                // İlk hisseyi otomatik yükle
+                if(index === 0) {
+                    loadTickerHistory(ticker, li);
+                }
+            });
+        }
+    } catch (e) {
+        tickerList.innerHTML = '<li class="loading-text">Hisseler yüklenemedi.</li>';
+    }
+
+    // 2. Hisse verilerini ve 20 yıllık formasyonları çek
+    async function loadTickerHistory(ticker, liElement) {
+        // Aktif sınıfını güncelle
+        document.querySelectorAll('.ticker-list li').forEach(el => el.classList.remove('active'));
+        if(liElement) liElement.classList.add('active');
+
+        currentTickerTitle.textContent = `${ticker} - Analiz Yükleniyor...`;
+        loader.style.display = 'block';
+        patternDetails.style.display = 'none';
+        patternsList.innerHTML = '';
 
         try {
-            const response = await fetch('/api/scan');
-            const data = await response.json();
+            const res = await fetch(`/api/history/${ticker}`);
+            const data = await res.json();
 
             if (data.status === 'success') {
-                const reports = data.data;
-                
-                if (reports.length === 0) {
-                    statusDot.className = 'dot';
-                    statusText.textContent = 'Tarama tamamlandı. Şu an için aktif formasyon bulunamadı.';
-                } else {
-                    statusDot.className = 'dot success';
-                    statusText.textContent = `Tarama tamamlandı. ${reports.length} adet fırsat/sinyal bulundu.`;
-                    
-                    reports.forEach((report, index) => {
-                        const card = createCard(report, index);
-                        cardsGrid.appendChild(card);
-                    });
-                }
+                currentTickerTitle.textContent = `${ticker} - 20 Yıllık Formasyon Analizi`;
+                currentData = data;
+                renderChart(data.candles, data.patterns);
+                renderPatternsList(data.patterns);
             } else {
-                throw new Error('API Hatası');
+                currentTickerTitle.textContent = `${ticker} - Veri Bulunamadı`;
             }
-        } catch (error) {
-            console.error('Tarama hatası:', error);
-            statusDot.className = 'dot error';
-            statusText.textContent = 'Tarama sırasında bir hata oluştu. Sunucu bağlantısını kontrol edin.';
+        } catch (e) {
+            currentTickerTitle.textContent = `Hata Oluştu!`;
         } finally {
-            // UI Güncellemesi: İşlem bitti
-            scanBtn.disabled = false;
-            btnText.textContent = 'Yeniden Tara';
-            btnLoader.style.display = 'none';
+            loader.style.display = 'none';
         }
-    });
+    }
 
-    function createCard(data, index) {
-        const card = document.createElement('div');
-        card.className = 'signal-card';
-        card.style.animationDelay = `${index * 0.1}s`;
+    // 3. Grafiği Çiz (Lightweight Charts)
+    function renderChart(candles, patterns) {
+        if (!chart) {
+            chart = LightweightCharts.createChart(chartContainer, {
+                layout: {
+                    background: { type: 'solid', color: 'transparent' },
+                    textColor: '#d1d5db',
+                },
+                grid: {
+                    vertLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                    horzLines: { color: 'rgba(255, 255, 255, 0.05)' },
+                },
+                crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+                timeScale: { borderColor: 'rgba(255, 255, 255, 0.1)' },
+            });
+            candleSeries = chart.addCandlestickSeries({
+                upColor: '#10b981', downColor: '#ef4444', 
+                borderVisible: false, wickUpColor: '#10b981', wickDownColor: '#ef4444'
+            });
+        }
 
-        // Yöne göre ikon
-        const dirIcon = data.direction === 'YÜKSELİŞ' ? '📈' : '📉';
+        candleSeries.setData(candles);
 
-        card.innerHTML = `
-            <div class="card-header">
-                <div class="ticker-name">${data.ticker}</div>
-                <div class="direction-badge ${data.direction}">${dirIcon} ${data.direction}</div>
-            </div>
-            <div class="card-body">
-                <div class="pattern-name">🔍 Formasyon: ${data.pattern}</div>
-                <div class="win-rate">🎯 Geçmiş Başarı: <strong>%${data.win_rate.toFixed(2)}</strong></div>
-                <div class="report-text">
-                    ${data.report}
+        // Markerları (Formasyon İşaretleri) ekle
+        const markers = [];
+        patterns.forEach(p => {
+            markers.push({
+                time: p.detection_date,
+                position: p.direction === 'YÜKSELİŞ' ? 'belowBar' : 'aboveBar',
+                color: p.direction === 'YÜKSELİŞ' ? '#10b981' : '#ef4444',
+                shape: p.direction === 'YÜKSELİŞ' ? 'arrowUp' : 'arrowDown',
+                text: p.type
+            });
+        });
+        
+        // Tarihe göre sıralanmalı
+        markers.sort((a, b) => new Date(a.time) - new Date(b.time));
+        candleSeries.setMarkers(markers);
+        chart.timeScale().fitContent();
+    }
+
+    // 4. Formasyon Listesini Oluştur
+    function renderPatternsList(patterns) {
+        if (patterns.length === 0) {
+            patternsList.innerHTML = '<div style="color:#94a3b8; font-size: 0.9rem;">Son 20 yılda formasyon tespit edilemedi.</div>';
+            return;
+        }
+
+        // En yeniden eskiye sırala
+        patterns.sort((a, b) => new Date(b.detection_date) - new Date(a.detection_date));
+
+        patterns.forEach((p, idx) => {
+            const card = document.createElement('div');
+            card.className = 'pattern-card';
+            card.innerHTML = `
+                <div class="pattern-card-title">
+                    <span>${p.type}</span>
+                    <span class="direction-badge ${p.direction}">${p.direction}</span>
                 </div>
-            </div>
-            <div class="card-footer">
-                Tespit Tarihi: ${data.date}
-            </div>
-        `;
-        return card;
+                <div class="pattern-card-date">Oluşum: ${p.detection_date}</div>
+            `;
+
+            card.onclick = () => showPatternDetails(p, card);
+            patternsList.appendChild(card);
+        });
+    }
+
+    // 5. Tıklanan formasyonun detaylarını göster ve grafiği oraya kaydır
+    function showPatternDetails(p, cardElement) {
+        document.querySelectorAll('.pattern-card').forEach(c => c.classList.remove('selected'));
+        if (cardElement) cardElement.classList.add('selected');
+
+        patternDetails.style.display = 'block';
+        pType.textContent = p.type;
+        pDate.textContent = p.detection_date;
+        pPrice.textContent = p.detection_price.toFixed(2) + ' TL';
+        
+        pDirection.textContent = p.direction;
+        pDirection.className = p.direction === 'YÜKSELİŞ' ? 'text-success' : 'text-danger';
+        pDirection.style.color = p.direction === 'YÜKSELİŞ' ? '#10b981' : '#ef4444';
+        
+        pTargetPrice.textContent = p.target_price.toFixed(2) + ' TL';
+        pTargetDate.textContent = p.target_date;
+
+        // Grafikte formasyonun olduğu tarihe odaklan
+        chart.timeScale().setVisibleLogicalRange({
+            from: chart.timeScale().coordinateToLogical(0), // Dummy to wake it up
+            to: chart.timeScale().coordinateToLogical(1)
+        }); // Biraz hacky ama chart objesine zoom yapıyoruz
+        
+        // Asıl focus:
+        // Sadece marker tarihlerini görebilmek için:
+        // Lightweight charts'da zaman skalasını belirli bir aralığa set edebiliriz.
+        // Ancak en basit yol, veride o tarihi bulup range belirlemektir.
+        
+        const dataIndex = currentData.candles.findIndex(c => c.time === p.detection_date);
+        if(dataIndex !== -1) {
+            chart.timeScale().setVisibleLogicalRange({
+                from: dataIndex - 30,
+                to: dataIndex + 30
+            });
+        }
     }
 });
