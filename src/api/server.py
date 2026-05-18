@@ -64,14 +64,22 @@ def get_history(ticker: str):
     
     # Chart için mum verisini hazırla (Lightweight Charts formatı)
     candles = []
+    seen_dates = set()
+    
+    # Tarihe göre sıralı olduğundan emin olalım
+    df = df.sort_index()
+    
     for index, row in df.iterrows():
-        candles.append({
-            "time": index.strftime('%Y-%m-%d'),
-            "open": row["Open"],
-            "high": row["High"],
-            "low": row["Low"],
-            "close": row["Close"]
-        })
+        date_str = index.strftime('%Y-%m-%d')
+        if date_str not in seen_dates:
+            seen_dates.add(date_str)
+            candles.append({
+                "time": date_str,
+                "open": float(row["Open"]),
+                "high": float(row["High"]),
+                "low": float(row["Low"]),
+                "close": float(row["Close"])
+            })
         
     return {
         "status": "success",

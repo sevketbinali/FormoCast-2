@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 currentTickerTitle.textContent = `${ticker} - Veri Bulunamadı`;
             }
         } catch (e) {
+            console.error("Dashboard yüklenirken hata:", e);
             currentTickerTitle.textContent = `Hata Oluştu!`;
         } finally {
             loader.style.display = 'none';
@@ -95,20 +96,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         candleSeries.setData(candles);
 
         // Markerları (Formasyon İşaretleri) ekle
-        const markers = [];
+        const markersMap = {};
         patterns.forEach(p => {
-            markers.push({
-                time: p.detection_date,
-                position: p.direction === 'YÜKSELİŞ' ? 'belowBar' : 'aboveBar',
-                color: p.direction === 'YÜKSELİŞ' ? '#10b981' : '#ef4444',
-                shape: p.direction === 'YÜKSELİŞ' ? 'arrowUp' : 'arrowDown',
-                text: p.type
-            });
+            const timeStr = p.detection_date;
+            if (!markersMap[timeStr]) {
+                markersMap[timeStr] = {
+                    time: timeStr,
+                    position: p.direction === 'YÜKSELİŞ' ? 'belowBar' : 'aboveBar',
+                    color: p.direction === 'YÜKSELİŞ' ? '#10b981' : '#ef4444',
+                    shape: p.direction === 'YÜKSELİŞ' ? 'arrowUp' : 'arrowDown',
+                    text: p.type
+                };
+            } else {
+                // Eğer aynı gün birden fazla formasyon varsa metni birleştir
+                markersMap[timeStr].text += ` & ${p.type}`;
+            }
         });
+        
+        const markers = Object.values(markersMap);
         
         // Tarihe göre sıralanmalı
         markers.sort((a, b) => new Date(a.time) - new Date(b.time));
-        candleSeries.setMarkers(markers);
+        
+        try {
+            candleSeries.setMarkers(markers);
+        } catch(e) {
+            console.error("Marker Hatası:", e);
+        }
         chart.timeScale().fitContent();
     }
 
