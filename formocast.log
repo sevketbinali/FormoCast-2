@@ -1,0 +1,65 @@
+2026-05-18 22:42:51,554 - FormoCast - INFO - =======================================
+2026-05-18 22:42:51,554 - FormoCast - INFO -        FormoCast Sistem Başlatıldı       
+2026-05-18 22:42:51,555 - FormoCast - INFO - =======================================
+2026-05-18 22:42:51,555 - FormoCast - INFO - 
+--- MOD 1: Geriye Dönük Analiz (Backtest) ---
+2026-05-18 22:42:51,555 - FormoCast - INFO - 'THYAO.IS' için veri çekiliyor. Periyot: 1y, Aralık: 1d
+2026-05-18 22:42:54,400 - FormoCast - ERROR - ERR-DATA-001: 'THYAO.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:42:54,401 - FormoCast - INFO - 
+--- MOD 2: Canlı Piyasa Taraması (Live Scanner) ---
+2026-05-18 22:42:54,401 - FormoCast - INFO - Canlı Tarama başlatılıyor: THYAO
+2026-05-18 22:42:54,401 - FormoCast - INFO - 'THYAO.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:42:56,169 - FormoCast - ERROR - ERR-DATA-001: 'THYAO.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:42:56,169 - FormoCast - INFO - Canlı Tarama başlatılıyor: GARAN
+2026-05-18 22:42:56,170 - FormoCast - INFO - 'GARAN.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:42:58,728 - FormoCast - ERROR - ERR-DATA-001: 'GARAN.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:42:58,729 - FormoCast - INFO - Canlı Tarama başlatılıyor: KCHOL
+2026-05-18 22:42:58,729 - FormoCast - INFO - 'KCHOL.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:43:01,345 - FormoCast - ERROR - ERR-DATA-001: 'KCHOL.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:43:01,346 - FormoCast - INFO - Canlı Tarama başlatılıyor: TUPRS
+2026-05-18 22:43:01,346 - FormoCast - INFO - 'TUPRS.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:43:02,864 - FormoCast - ERROR - ERR-DATA-001: 'TUPRS.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:43:02,865 - FormoCast - INFO - Canlı Tarama başlatılıyor: AKBNK
+2026-05-18 22:43:02,865 - FormoCast - INFO - 'AKBNK.IS' için veri çekiliyor. Periyot: 2y, Aralık: 1d
+2026-05-18 22:43:04,505 - FormoCast - ERROR - ERR-DATA-001: 'AKBNK.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:43:04,505 - FormoCast - INFO - 
+Şu anki aktif piyasada takip edilen hisselerde güncel bir formasyon tespit edilemedi.
+2026-05-18 22:43:04,505 - FormoCast - INFO - =======================================
+2026-05-18 22:43:04,506 - FormoCast - INFO -        FormoCast İşlemleri Tamamlandı      
+2026-05-18 22:43:04,506 - FormoCast - INFO - =======================================
+2026-05-18 22:43:07,103 - FormoCast - INFO - 'THYAO.IS' için veri çekiliyor. Periyot: 1y, Aralık: 1d
+2026-05-18 22:43:07,105 - FormoCast - INFO - 'THYAO.IS' için veri başarıyla çekildi. Satır sayısı: 2
+2026-05-18 22:43:07,108 - FormoCast - INFO - 'BOS_HISSE.IS' için veri çekiliyor. Periyot: 1y, Aralık: 1d
+2026-05-18 22:43:07,108 - FormoCast - ERROR - ERR-DATA-001: 'BOS_HISSE.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:43:07,132 - FormoCast - INFO - 'THYAO.IS' için veri çekiliyor. Periyot: 1y, Aralık: 1d
+2026-05-18 22:43:07,133 - FormoCast - ERROR - ERR-DATA-002: 'THYAO.IS' verisinde eksik kolon: High
+2026-05-18 22:43:07,137 - FormoCast - INFO - 'GARAN.IS' için veri çekiliyor. Periyot: 1y, Aralık: 1d
+2026-05-18 22:43:07,137 - FormoCast - INFO - 'GARAN.IS' için veri başarıyla çekildi. Satır sayısı: 2
+2026-05-18 22:43:07,148 - FormoCast - INFO - Canlı Tarama başlatılıyor: TEST
+2026-05-18 22:43:07,149 - FormoCast - INFO - CANLI SİNYAL: TEST - Bu hissede Double Top formasyonu bulunmaktadır. Bu formasyon geçmişte bu hissede %75.50 doğrulukla başarılı sonuç vermiştir. Şu an beklenen senaryo DÜŞÜŞ yönündedir.
+2026-05-18 22:43:07,152 - FormoCast - INFO - Canlı Tarama başlatılıyor: TEST
+2026-05-18 22:43:07,154 - FormoCast - WARNING - ERR-PTRN-001: Verilen parametrelerle hiçbir tepe veya dip bulunamadı. Order çok yüksek olabilir.
+2026-05-18 22:43:07,156 - FormoCast - INFO - Simülasyon tamamlandı. İşlem: 1, Win Rate: %0.00, PnL: %-3.00
+2026-05-18 22:43:07,164 - FormoCast - ERROR - ERR-PTRN-001: Ekstremum bulmak için gönderilen veri serisi boş.
+2026-05-18 22:43:07,167 - FormoCast - WARNING - ERR-PTRN-001: Verilen parametrelerle hiçbir tepe veya dip bulunamadı. Order çok yüksek olabilir.
+2026-05-18 22:43:07,176 - FormoCast - WARNING - ERR-SIM-001: Simülasyon için herhangi bir formasyon bulunamadı.
+2026-05-18 22:43:07,179 - FormoCast - INFO - Simülasyon tamamlandı. İşlem: 1, Win Rate: %100.00, PnL: %10.00
+2026-05-18 22:43:07,181 - FormoCast - INFO - Simülasyon tamamlandı. İşlem: 1, Win Rate: %0.00, PnL: %-5.00
+2026-05-18 22:47:02,342 - FormoCast - INFO - 'THYAO.IS' için veri çekiliyor. Periyot: 1y, Aralık: 1d
+2026-05-18 22:47:02,343 - FormoCast - INFO - 'THYAO.IS' için veri başarıyla çekildi. Satır sayısı: 2
+2026-05-18 22:47:02,346 - FormoCast - INFO - 'BOS_HISSE.IS' için veri çekiliyor. Periyot: 1y, Aralık: 1d
+2026-05-18 22:47:02,346 - FormoCast - ERROR - ERR-DATA-001: 'BOS_HISSE.IS' için veri kaynağına ulaşılamadı veya veri boş döndü.
+2026-05-18 22:47:02,349 - FormoCast - INFO - 'THYAO.IS' için veri çekiliyor. Periyot: 1y, Aralık: 1d
+2026-05-18 22:47:02,349 - FormoCast - ERROR - ERR-DATA-002: 'THYAO.IS' verisinde eksik kolon: High
+2026-05-18 22:47:02,352 - FormoCast - INFO - 'GARAN.IS' için veri çekiliyor. Periyot: 1y, Aralık: 1d
+2026-05-18 22:47:02,352 - FormoCast - INFO - 'GARAN.IS' için veri başarıyla çekildi. Satır sayısı: 2
+2026-05-18 22:47:02,355 - FormoCast - INFO - Canlı Tarama başlatılıyor: TEST
+2026-05-18 22:47:02,356 - FormoCast - INFO - CANLI SİNYAL: TEST - Bu hissede Double Top formasyonu bulunmaktadır. Bu formasyon geçmişte bu hissede %75.50 doğrulukla başarılı sonuç vermiştir. Şu an beklenen senaryo DÜŞÜŞ yönündedir.
+2026-05-18 22:47:02,358 - FormoCast - INFO - Canlı Tarama başlatılıyor: TEST
+2026-05-18 22:47:02,359 - FormoCast - WARNING - ERR-PTRN-001: Verilen parametrelerle hiçbir tepe veya dip bulunamadı. Order çok yüksek olabilir.
+2026-05-18 22:47:02,359 - FormoCast - INFO - Simülasyon tamamlandı. İşlem: 1, Win Rate: %0.00, PnL: %-3.00
+2026-05-18 22:47:02,363 - FormoCast - ERROR - ERR-PTRN-001: Ekstremum bulmak için gönderilen veri serisi boş.
+2026-05-18 22:47:02,365 - FormoCast - WARNING - ERR-PTRN-001: Verilen parametrelerle hiçbir tepe veya dip bulunamadı. Order çok yüksek olabilir.
+2026-05-18 22:47:02,374 - FormoCast - WARNING - ERR-SIM-001: Simülasyon için herhangi bir formasyon bulunamadı.
+2026-05-18 22:47:02,376 - FormoCast - INFO - Simülasyon tamamlandı. İşlem: 1, Win Rate: %100.00, PnL: %10.00
+2026-05-18 22:47:02,378 - FormoCast - INFO - Simülasyon tamamlandı. İşlem: 1, Win Rate: %0.00, PnL: %-5.00
