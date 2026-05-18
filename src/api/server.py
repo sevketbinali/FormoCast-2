@@ -9,8 +9,13 @@ import os
 
 app = FastAPI(title="FormoCast API")
 
-# Takip edilen hisse havuzu
-BIST_POOL = ["THYAO", "GARAN", "KCHOL", "TUPRS", "AKBNK", "EREGL", "BIMAS", "SAHOL", "SISE", "ASELS"]
+# Takip edilen hisse havuzu (BIST 30)
+BIST_POOL = [
+    "AKBNK", "ALARK", "ASELS", "ASTOR", "BIMAS", "BRSAN", "CINFO", "ENKAI", 
+    "EREGL", "FROTO", "GARAN", "GUBRF", "HEKTS", "ISCTR", "KCHOL", "KONTR",
+    "KOZAA", "KOZAL", "KRDMD", "ODAS", "PGSUS", "SAHOL", "SASA", "SISE", 
+    "TCELL", "THYAO", "TOASO", "TUPRS", "YKBNK", "PETKM"
+]
 
 @app.get("/api/tickers")
 def get_tickers():
@@ -22,14 +27,16 @@ def get_history(ticker: str):
     fetcher = BISTDataFetcher()
     # 20 yıllık veriyi al
     df = fetcher.fetch_historical_data(ticker, period="20y")
-    if df.empty:
+    if df is None or df.empty:
         return {"status": "error", "message": "Veri çekilemedi."}
         
     prices = df['Close'].values
     dates = df.index.strftime('%Y-%m-%d').tolist()
     
     extrema_detector = ExtremaDetector()
-    peaks, troughs = extrema_detector.find_extrema(prices)
+    extrema_data = extrema_detector.find_extrema(df['Close'])
+    peaks = extrema_data['peaks']
+    troughs = extrema_data['troughs']
     
     pattern_detector = PatternDetector(tolerance_pct=0.03)
     double_tops = pattern_detector.find_double_top(peaks, troughs)
