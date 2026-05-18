@@ -66,7 +66,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         } catch (e) {
             console.error("Dashboard yüklenirken hata:", e);
-            currentTickerTitle.textContent = `Hata Oluştu!`;
+            currentTickerTitle.textContent = `Hata Oluştu! ${e.message}`;
+            const errDetails = document.createElement('div');
+            errDetails.style.color = "red";
+            errDetails.style.fontSize = "12px";
+            errDetails.style.marginTop = "10px";
+            errDetails.textContent = e.stack;
+            currentTickerTitle.parentNode.appendChild(errDetails);
         } finally {
             loader.style.display = 'none';
         }
