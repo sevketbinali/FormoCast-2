@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!chart) {
             chart = LightweightCharts.createChart(chartContainer, {
                 layout: {
-                    background: { type: 'solid', color: 'transparent' },
+                    backgroundColor: 'transparent',
                     textColor: '#d1d5db',
                 },
                 grid: {
